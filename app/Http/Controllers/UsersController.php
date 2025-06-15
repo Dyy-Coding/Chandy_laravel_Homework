@@ -178,8 +178,24 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UsersModel $usersModel)
-    {
-        //
-    }
+    // delete data by $id
+            public function delete($id)
+                {
+                    foreach ($this->users as $index => $user) {
+                        if ($user['id'] == $id) {
+                            // Remove user from array
+                            array_splice($this->users, $index, 1);
+
+                            return response()->json([
+                                'message' => 'User deleted (demo only).',
+                            ]);
+                        }
+                    }
+
+                    return response()->json([
+                        'message' => 'User not found.',
+                    ], 404);
+                }
+
+
 }
