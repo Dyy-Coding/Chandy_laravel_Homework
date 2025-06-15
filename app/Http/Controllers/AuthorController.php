@@ -118,21 +118,39 @@ class AuthorController extends Controller
                 ], 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AuthorModel $authorModel)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AuthorModel $authorModel)
-    {
-        //
-    }
+    // Update the data by $id 
+        public function update(Request $request, $id)
+                {
+                    // Validate input
+                    $validated = $request->validate([
+                        'name' => 'required|string',
+                        'bio' => 'nullable|string',
+                        'nationality' => 'required|string',
+                    ]);
+
+                    foreach ($this->authors as &$author) {
+                        if ($author['id'] == $id) {
+                            // Update only provided fields
+                            foreach ($validated as $key => $value) {
+                                $author[$key] = $value;
+                            }
+                            $author['updated_at'] = now()->toDateTimeString();
+
+                            return response()->json([
+                                'message' => 'Auhtor updated (demo only).',
+                                'data' => $author,
+                            ]);
+                        }
+                    }
+
+                    return response()->json([
+                        'message' => 'Author not found.',
+                    ], 404);
+                }
 
     /**
      * Remove the specified resource from storage.
