@@ -141,20 +141,38 @@ class UsersController extends Controller
                 ], 404);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UsersModel $usersModel)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UsersModel $usersModel)
+    public function update(Request $request, $id)
     {
         //
+        // Validate input
+                    $validated = $request->validate([
+                        'name' => 'required|string',
+                        'email' => 'required|email|unique:users,email', // unique check depends on DB, here demo only
+                        'membershipDate' => 'required|date',
+                    ]);
+
+                    foreach ($this->users as &$user) {
+                        if ($user['id'] == $id) {
+                            // Update only provided fields
+                            foreach ($validated as $key => $value) {
+                                $user[$key] = $value;
+                            }
+                            $user['updated_at'] = now()->toDateTimeString();
+
+                            return response()->json([
+                                'message' => 'User updated (demo only).',
+                                'data' => $user,
+                            ]);
+                        }
+                    }
+
+                    return response()->json([
+                        'message' => 'User not found.',
+                    ], 404);
     }
 
     /**
