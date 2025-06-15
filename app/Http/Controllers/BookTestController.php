@@ -162,6 +162,27 @@ class BookTestController extends Controller
                         'message' => 'Book not found.',
                     ], 404);
                 }
+                
+            // delete data by $id
+            public function delete($id)
+                {
+                    foreach ($this->books as $index => $book) {
+                        if ($book['id'] == $id) {
+                            // Remove book from array
+                            array_splice($this->books, $index, 1);
+
+                            return response()->json([
+                                'message' => 'Book deleted (demo only).',
+                            ]);
+                        }
+                    }
+
+                    return response()->json([
+                        'message' => 'Book not found.',
+                    ], 404);
+                }
+
+
 
 
 
