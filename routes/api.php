@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BookController;
@@ -31,6 +32,14 @@ Route::prefix('books')->controller(BookTestController::class)->group(function ()
 
 //Authors routes 
 Route::prefix('authors')->controller(AuthorController::class)->group(function () {
+    Route::get('/', 'index');             // GET /api/books
+    Route::post('/create', 'create');            // POST /api/books  (instead of /create)
+    Route::get('/show/{id}', 'show');          // GET /api/books/{id}
+    Route::put('/update/{id}', 'update');        // PUT /api/books/{id}
+    Route::delete('/delete/{id}', 'delete');    // DELETE /api/books/{id}
+});
+//Users routes 
+Route::prefix('users')->controller(UsersController::class)->group(function () {
     Route::get('/', 'index');             // GET /api/books
     Route::post('/create', 'create');            // POST /api/books  (instead of /create)
     Route::get('/show/{id}', 'show');          // GET /api/books/{id}

@@ -87,9 +87,34 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+         // Validate input
+                $validated = $request->validate([
+                    'name' => 'required|string',
+                    'email' => 'required|email|unique:users,email', // unique check depends on DB, here demo only
+                    'membershipDate' => 'required|date',
+                ]);
+
+                // Generate a new ID (auto-increment-like logic)
+                $newId = count($this->users) + 1;
+
+                // Create new user array
+                $newUsers = array_merge($validated, [
+                    'id' => $newId,
+                    'created_at' => now()->toDateTimeString(),
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+
+                // Push to array (only in memory, not stored permanently)
+                $this->users[] = $newUsers;
+
+                // Return response
+                return response()->json([
+                    'message' => 'User created (demo only, not saved).',
+                    'data' => $newUsers
+                ], 201);
     }
 
     /**
