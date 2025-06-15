@@ -72,7 +72,7 @@ class BookTestController extends Controller
     public function index()
         {
             return response()->json([
-                'message' => 'Get Data successful.',
+                'message' => 'Get Data books successful.',
                 'data' => $this->books
             ]);
         }

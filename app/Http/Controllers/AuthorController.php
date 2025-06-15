@@ -11,9 +11,53 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    private $authors = [
+            [
+                'id' => 1,
+                'name' => 'F. Scott Fitzgerald',
+                'bio' => 'American novelist and short story writer, known for The Great Gatsby.',
+                'nationality' => 'American',
+            ],
+            [
+                'id' => 2,
+                'name' => 'Harper Lee',
+                'bio' => 'American novelist best known for To Kill a Mockingbird.',
+                'nationality' => 'American',
+            ],
+            [
+                'id' => 3,
+                'name' => 'George Orwell',
+                'bio' => 'English novelist, essayist, journalist, and critic.',
+                'nationality' => 'British',
+            ],
+            [
+                'id' => 4,
+                'name' => 'Robert C. Martin',
+                'bio' => 'Software engineer and author known for Clean Code.',
+                'nationality' => 'American',
+            ],
+            [
+                'id' => 5,
+                'name' => 'Andrew Hunt',
+                'bio' => 'Computer programmer and co-author of The Pragmatic Programmer.',
+                'nationality' => 'American',
+            ],
+            [
+                'id' => 6,
+                'name' => 'David Thomas',
+                'bio' => 'Programmer and co-author of The Pragmatic Programmer.',
+                'nationality' => 'American',
+            ],
+        ];
+
     public function index()
     {
         //
+         return response()->json([
+                'message' => 'Get Data authors successful.',
+                'data' => $this->authors
+            ]);
     }
 
     /**
