@@ -77,7 +77,7 @@ class AuthorController extends Controller
                 // Generate a new ID (auto-increment-like logic)
                 $newId = count($this->authors) + 1;
 
-                // Create new book array
+                // Create new author array
                 $newAuthors = array_merge($validated, [
                     'id' => $newId,
                     'created_at' => now()->toDateTimeString(),
@@ -94,20 +94,28 @@ class AuthorController extends Controller
                 ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  
 
     /**
      * Display the specified resource.
      */
-    public function show(AuthorModel $authorModel)
+    public function show($id)
     {
         //
+         // Search for the author by ID
+                foreach ($this->authors as $author) {
+                    if ($author['id'] == $id) {
+                        return response()->json([
+                            'message' => 'Author found.',
+                            'data' => $author
+                        ]);
+                    }
+                }
+
+                // If author not found
+                return response()->json([
+                    'message' => 'Author not found.'
+                ], 404);
     }
 
     /**
