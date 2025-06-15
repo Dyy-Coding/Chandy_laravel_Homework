@@ -129,6 +129,40 @@ class BookTestController extends Controller
                     'message' => 'Book not found.'
                 ], 404);
             }
+        
+        // Update the data by $id 
+        public function update(Request $request, $id)
+                {
+                    // Validate input
+                    $validated = $request->validate([
+                        'title' => 'sometimes|string',
+                        'author_id' => 'sometimes|uuid',
+                        'isbn' => 'sometimes|string',
+                        'publication_year' => 'sometimes|digits:4|integer|min:1000|max:' . date('Y'),
+                        'genre' => 'sometimes|string',
+                        'available_copies' => 'sometimes|integer|min:0',
+                    ]);
+
+                    foreach ($this->books as &$book) {
+                        if ($book['id'] == $id) {
+                            // Update only provided fields
+                            foreach ($validated as $key => $value) {
+                                $book[$key] = $value;
+                            }
+                            $book['updated_at'] = now()->toDateTimeString();
+
+                            return response()->json([
+                                'message' => 'Book updated (demo only).',
+                                'data' => $book,
+                            ]);
+                        }
+                    }
+
+                    return response()->json([
+                        'message' => 'Book not found.',
+                    ], 404);
+                }
+
 
 
 

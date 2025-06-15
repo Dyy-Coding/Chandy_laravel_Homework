@@ -18,18 +18,14 @@ use App\Http\Controllers\PostController;
 */
 
 
-Route::get('/books', [BookTestController::class, 'index']);
-Route::post('/books/create', [BookTestController::class, 'create']);
-Route::get('/books/show/{id}', [BookTestController::class, 'show']); // Optional
 
-
-// Route::prefix('books')->controller(BookTestController::class)->group(function () {
-//     Route::get('/', 'index');             // GET /api/books
-//     Route::post('/create', 'create');            // POST /api/books  (instead of /create)
-//     Route::get('/show/{id}', 'show');          // GET /api/books/{id}
-//     Route::put('/update/{id}', 'update');        // PUT /api/books/{id}
-//     Route::delete('/delete/{id}', 'delete');    // DELETE /api/books/{id}
-// });
+Route::prefix('books')->controller(BookTestController::class)->group(function () {
+    Route::get('/', 'index');             // GET /api/books
+    Route::post('/create', 'create');            // POST /api/books  (instead of /create)
+    Route::get('/show/{id}', 'show');          // GET /api/books/{id}
+    Route::put('/update/{id}', 'update');        // PUT /api/books/{id}
+    Route::delete('/delete/{id}', 'delete');    // DELETE /api/books/{id}
+});
 
 
 
