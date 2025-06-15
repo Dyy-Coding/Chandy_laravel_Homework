@@ -63,9 +63,35 @@ class AuthorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+
+         // Validate input
+                $validated = $request->validate([
+                    'name' => 'required|string',
+                    'bio' => 'nullable|string',
+                    'nationality' => 'required|string',
+                ]);
+
+                // Generate a new ID (auto-increment-like logic)
+                $newId = count($this->authors) + 1;
+
+                // Create new book array
+                $newAuthors = array_merge($validated, [
+                    'id' => $newId,
+                    'created_at' => now()->toDateTimeString(),
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+
+                // Push to array (only in memory, not stored permanently)
+                $this->authors[] = $newAuthors;
+
+                // Return response
+                return response()->json([
+                    'message' => 'Book created (demo only, not saved).',
+                    'data' => $newAuthors
+                ], 201);
     }
 
     /**
