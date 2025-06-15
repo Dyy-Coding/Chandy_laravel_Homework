@@ -117,20 +117,28 @@ class UsersController extends Controller
                 ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+   
 
     /**
      * Display the specified resource.
      */
-    public function show(UsersModel $usersModel)
+    public function show($id)
     {
         //
+        // Search for the user by ID
+                foreach ($this->users as $user) {
+                    if ($user['id'] == $id) {
+                        return response()->json([
+                            'message' => 'User found.',
+                            'data' => $user
+                        ]);
+                    }
+                }
+
+                // If author not found
+                return response()->json([
+                    'message' => 'Users not found.'
+                ], 404);
     }
 
     /**
