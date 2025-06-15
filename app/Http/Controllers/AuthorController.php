@@ -155,8 +155,22 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AuthorModel $authorModel)
-    {
-        //
-    }
+    // delete data by $id
+    public function delete($id)
+        {
+            foreach ($this->authors as $index => $author) {
+                if ($author['id'] == $id) {
+                    // Remove author from array
+                    array_splice($this->authors, $index, 1);
+
+                    return response()->json([
+                        'message' => 'Author deleted (demo only).',
+                    ]);
+                }
+            }
+
+            return response()->json([
+                'message' => 'Author not found.',
+            ], 404);
+        }
 }
