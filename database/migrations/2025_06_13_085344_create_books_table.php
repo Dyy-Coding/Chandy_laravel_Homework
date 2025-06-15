@@ -12,12 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string("title", 20);
-            $table->string("description",200);
-        
-        });
+    $table->id(); // Auto-incrementing BIGINT primary key
+    $table->uuid('author_id');
+    $table->string('title');
+    $table->string('isbn')->unique();
+    $table->year('publication_year');
+    $table->string('genre');
+    $table->integer('available_copies');
+    $table->timestamps();
+
+    // Uncomment if foreign key is used
+    // $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+});
+
     }
 
     /**

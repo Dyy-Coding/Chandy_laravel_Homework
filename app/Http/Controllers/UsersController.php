@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CommentModel;
+use App\Models\UsersModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CommentModel $commentModel)
+    public function show(UsersModel $usersModel)
     {
         //
     }
@@ -43,7 +43,7 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CommentModel $commentModel)
+    public function edit(UsersModel $usersModel)
     {
         //
     }
@@ -51,7 +51,7 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CommentModel $commentModel)
+    public function update(Request $request, UsersModel $usersModel)
     {
         //
     }
@@ -59,7 +59,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CommentModel $commentModel)
+    public function destroy(UsersModel $usersModel)
     {
         //
     }
