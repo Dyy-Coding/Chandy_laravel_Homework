@@ -68,7 +68,7 @@ class BookTestController extends Controller
     ],
 ];
 
-
+    // Get all data from books
     public function index()
         {
             return response()->json([
@@ -76,6 +76,42 @@ class BookTestController extends Controller
                 'data' => $this->books
             ]);
         }
+    
+
+        // Create data 
+        public function create(Request $request)
+            {
+                // Validate input
+                $validated = $request->validate([
+                    'title' => 'required|string',
+                    'author_id' => 'required|uuid',
+                    'isbn' => 'required|string',
+                    'publication_year' => 'required|digits:4|integer|min:1000|max:' . date('Y'),
+                    'genre' => 'required|string',
+                    'available_copies' => 'required|integer|min:0',
+                ]);
+
+                // Generate a new ID (auto-increment-like logic)
+                $newId = count($this->books) + 1;
+
+                // Create new book array
+                $newBook = array_merge($validated, [
+                    'id' => $newId,
+                    'created_at' => now()->toDateTimeString(),
+                    'updated_at' => now()->toDateTimeString(),
+                ]);
+
+                // Push to array (only in memory, not stored permanently)
+                $this->books[] = $newBook;
+
+                // Return response
+                return response()->json([
+                    'message' => 'Book created (demo only, not saved).',
+                    'data' => $newBook
+                ], 201);
+            }
+
+
 
 
 }
