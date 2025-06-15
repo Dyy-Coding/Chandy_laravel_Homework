@@ -110,6 +110,26 @@ class BookTestController extends Controller
                     'data' => $newBook
                 ], 201);
             }
+        
+        // Show data spaciafic $id 
+        public function show($id)
+            {
+                // Search for the book by ID
+                foreach ($this->books as $book) {
+                    if ($book['id'] == $id) {
+                        return response()->json([
+                            'message' => 'Book found.',
+                            'data' => $book
+                        ]);
+                    }
+                }
+
+                // If book not found
+                return response()->json([
+                    'message' => 'Book not found.'
+                ], 404);
+            }
+
 
 
 
