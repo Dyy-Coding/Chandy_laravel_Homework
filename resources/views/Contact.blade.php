@@ -55,6 +55,8 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="#">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#trending">Trending</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#about">About</a>
@@ -67,25 +69,15 @@
     </div>
 </nav>
 
-<!-- Hero Banner with Video Background -->
-<section class="position-relative text-white text-center py-5" style="overflow: hidden; height: 100vh;">
-    <!-- Background Video -->
-    <video autoplay muted loop playsinline class="hero-video">
-        <source src="public/video/7334800-hd_1920_1080_24fps.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
 
-    <!-- Optional Overlay -->
-    <div class="video-overlay"></div>
-
-    <!-- Content -->
-    <div class="container py-5 d-flex flex-column justify-content-center align-items-center h-100 position-relative" style="z-index: 1;">
-        <h1 class="display-4 fw-bold">Welcome to GenZ Vibe</h1>
-        <p class="lead">Trends, Tech & Talks – All in One Place</p>
-        <a href="#trending" class="btn btn-warning btn-lg mt-3">Explore Now</a>
+<!-- Contact Section -->
+<section id="contact" class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="mb-4">📬 Get in Touch</h2>
+        <p class="lead">Got a suggestion, idea, or just want to say hi? We'd love to hear from you!</p>
+        <a href="mailto:hello@genzvibe.com" class="btn btn-dark">Email Us</a>
     </div>
 </section>
-
 
 <!-- Footer -->
 <footer class="text-center text-white bg-dark py-4">
