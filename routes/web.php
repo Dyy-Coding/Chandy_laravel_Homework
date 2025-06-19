@@ -24,5 +24,10 @@ Route::get('/Welcome', function () {
 
 
 Route::get("/",[HomeController::class,"index"]);
+Route::get("/create",[HomeController::class,"create"]);
+Route::delete("/delete/{id}",[HomeController::class,"destroy"]);
+Route::get("/edit/{id}",[HomeController::class,"edit"]);
+Route::put("/update/{id}",[HomeController::class,"update"]);
+Route::post("/store",[HomeController::class,"store"]);
 Route::get("/about",[AboutController::class,"index"]);
 Route::get("/contact",[ContactController::class,"index"]);

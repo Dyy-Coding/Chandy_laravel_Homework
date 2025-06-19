@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GenZ Vibe</title>
+    <title>GenZ Vibe - Book Library</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -18,16 +18,6 @@
         .btn-warning {
             border-radius: 25px;
             font-weight: bold;
-        }
-
-        .hero-video {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            top: 0;
-            left: 0;
-            z-index: -1;
         }
 
         .video-overlay {
@@ -55,7 +45,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="/">Home</a>
                 </li>
-                </li>
+               
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
@@ -67,33 +57,63 @@
     </div>
 </nav>
 
-<!-- Hero Banner with Video Background -->
-<section class="position-relative text-white text-center py-5" style="overflow: hidden; height: 100vh;">
-    <!-- Background Video -->
-    <video autoplay muted loop playsinline class="hero-video">
-        <source src="public/video/7334800-hd_1920_1080_24fps.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+<!-- Book Section -->
+<section class="min-h-screen bg-gradient-to-b from-white to-slate-100 py-5">
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-3xl font-bold text-indigo-700">📚 Book Library</h1>
+            <a href="/create"
+               class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+               ➕ Add Book
+            </a>
+        </div>
 
-    <!-- Optional Overlay -->
-    <div class="video-overlay"></div>
+        @if (session('success'))
+            <div class="alert alert-success rounded-pill px-4 shadow">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <!-- Content -->
-    <div class="container py-5 d-flex flex-column justify-content-center align-items-center h-100 position-relative" style="z-index: 1;">
-        <h1 class="display-4 fw-bold">Welcome to GenZ Vibe</h1>
-        <p class="lead">Trends, Tech & Talks – All in One Place</p>
-        <a href="#trending" class="btn btn-warning btn-lg mt-3">Explore Now</a>
+        <div class="overflow-x-auto bg-white rounded-xl shadow">
+            <table class="table table-hover text-center align-middle">
+                <thead class="bg-indigo-100 text-indigo-700">
+                    <tr>
+                        <th>Title</th>
+                        <th>Genre</th>
+                        <th>Year</th>
+                        <th>ISBN</th>
+                        <th>Copies</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($books as $book)
+                        <tr>
+                            <td class="fw-semibold">{{ $book->title }}</td>
+                            <td>{{ $book->genre }}</td>
+                            <td>{{ $book->publication_year }}</td>
+                            <td>{{ $book->isbn }}</td>
+                            <td>{{ $book->available_copies }}</td>
+                            <td>
+                                <a href="/edit/{{$book->id}}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                <form action="/delete/{{ $book->id }}" method="DELEE" class="d-inline"
+                                    onsubmit="return confirm('Are you sure to delete this book?')">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">🗑️ Delete</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
 
-
 <!-- Footer -->
-<footer class="text-center text-white bg-dark py-4">
-    <div class="container">
-        <p class="mb-0">© <?php echo date("Y"); ?> GenZ Vibe. All rights reserved.</p>
-    </div>
+<footer class="text-center text-white bg-dark py-3 mt-5">
+    <p class="mb-0">© {{ date('Y') }} GenZ Vibe. All rights reserved.</p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
