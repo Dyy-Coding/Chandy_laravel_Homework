@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +23,6 @@ Route::get('/Welcome', function () {
 });
 
 
-Route::get("/",[StudentController::class,"home"]);
-Route::get("/customer",[CustomerController::class,"index"]);
+Route::get("/",[HomeController::class,"index"]);
+Route::get("/about",[AboutController::class,"index"]);
+Route::get("/contact",[ContactController::class,"index"]);
