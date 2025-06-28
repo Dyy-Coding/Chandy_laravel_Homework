@@ -19,4 +19,10 @@ class BookModel extends Model
         'genre',
         'available_copies',
     ];
+
+    // 📌 Relationship: Book belongs to Author
+    public function author()
+    {
+        return $this->belongsTo(AuthorModel::class, 'author_id', 'id');
+    }
 }
