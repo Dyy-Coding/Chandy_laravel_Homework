@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use App\Models\BookModel;
 
@@ -17,18 +18,10 @@ class BookTestController extends Controller
     }
 
     // Store new book
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $validated = $request->validate([
-            'author_id' => 'required|uuid',
-            'title' => 'required|string',
-            'isbn' => 'required|string|unique:books,isbn',
-            'publication_year' => 'required|integer',
-            'genre' => 'required|string',
-            'available_copies' => 'required|integer',
-        ]);
-
-        $book = BookModel::create($validated);
+       
+        $book = BookModel::create($request->all() );
 
         return response()->json([
             'message' => 'Book created successfully.',
@@ -52,7 +45,7 @@ class BookTestController extends Controller
     }
 
     // Update book
-    public function update(Request $request, $id)
+    public function update(StorePostRequest $request, $id)
     {
         $book = BookModel::find($id);
 
@@ -60,16 +53,9 @@ class BookTestController extends Controller
             return response()->json(['message' => 'Book not found.'], 404);
         }
 
-        $validated = $request->validate([
-            'author_id' => 'sometimes|uuid',
-            'title' => 'sometimes|string',
-            'isbn' => 'sometimes|string|unique:books,isbn,' . $id,
-            'publication_year' => 'sometimes|integer',
-            'genre' => 'sometimes|string',
-            'available_copies' => 'sometimes|integer',
-        ]);
+      
 
-        $book->update($validated);
+        $book->update($request->all());
 
         return response()->json([
             'message' => 'Book updated successfully.',

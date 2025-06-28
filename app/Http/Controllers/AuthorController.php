@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AuthorModel;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthorPostRequest;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -63,22 +64,14 @@ class AuthorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create(AuthorPostRequest $request)
     {
-        //
-
-         // Validate input
-                $validated = $request->validate([
-                    'name' => 'required|string',
-                    'bio' => 'nullable|string',
-                    'nationality' => 'required|string',
-                ]);
 
                 // Generate a new ID (auto-increment-like logic)
                 $newId = count($this->authors) + 1;
 
                 // Create new author array
-                $newAuthors = array_merge($validated, [
+                $newAuthors = array_merge($request->all(), [
                     'id' => $newId,
                     'created_at' => now()->toDateTimeString(),
                     'updated_at' => now()->toDateTimeString(),
@@ -125,17 +118,12 @@ class AuthorController extends Controller
     // Update the data by $id 
         public function update(Request $request, $id)
                 {
-                    // Validate input
-                    $validated = $request->validate([
-                        'name' => 'required|string',
-                        'bio' => 'nullable|string',
-                        'nationality' => 'required|string',
-                    ]);
+                   
 
                     foreach ($this->authors as &$author) {
                         if ($author['id'] == $id) {
                             // Update only provided fields
-                            foreach ($validated as $key => $value) {
+                            foreach ($request->all() as $key => $value) {
                                 $author[$key] = $value;
                             }
                             $author['updated_at'] = now()->toDateTimeString();
